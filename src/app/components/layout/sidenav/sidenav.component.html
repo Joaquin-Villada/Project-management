@@ -1,0 +1,11 @@
+<div>
+  @for (path of pathsList; track path.name;) {
+    <div class="h-[30px] pt-[10px] pb-[40px] pl-2 pr-2">
+      <button mat-button class="flex justify-between" (click)="CloseSidenav()" [routerLink]="path.url">
+        <p class="font-bold">{{ path.name }}</p>
+        @if (path.icon) {<mat-icon>{{ path.icon }}</mat-icon
+        >}
+      </button>
+    </div>
+  }
+</div>

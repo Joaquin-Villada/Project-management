@@ -1,0 +1,134 @@
+<mat-card class="w-[900px] h-[500px] flex content-center text-cidsBlue">
+  <mat-tab-group dynamicHeight>
+    <!-- Desarrollador  -->
+    <mat-tab label="Desarrollador">
+      <div>
+        <div class="text-[40px] h-14 p-5">
+          <mat-icon id="name-icon">engineering</mat-icon>
+          {{ developer?.name }}
+        </div>
+        <div
+          class="flex flex-col h-[396px] w-full p-12 gap-3 text-xl justify-center"
+        >
+          <div class="flex text-center items-center">
+            <mat-icon>mail</mat-icon> Email: {{ developer?.mail }}
+          </div>
+          <div class="flex text-center items-center">
+            <mat-icon>person_pin</mat-icon> Rol:
+            {{ developer?.role?.name }}
+          </div>
+          <div class="flex text-center items-center">
+            <mat-icon>person_add</mat-icon> Fecha de creacion:
+            {{ developer?.creationDate | date: "dd/MM/yyyy" }}
+          </div>
+          <div class="flex text-center items-center">
+            <mat-icon>today</mat-icon> Fecha de inicio:
+            {{ developer?.startDate | date: "dd/MM/yyyy" }}
+          </div>
+          <div class="flex text-center items-center">
+            <mat-icon>calendar_month</mat-icon> Fecha de Actualizacion:
+            {{ developer?.updateDate | date: "dd/MM/yyyy" }}
+          </div>
+          <br />
+        </div>
+      </div>
+    </mat-tab>
+    <!-- Project tab  -->
+    <mat-tab label="Proyectos">
+      <div>
+        <!-- /*Aca iteran los proyectos del desarrollador*/  -->
+        @if (developer?.project?.length === 0) {
+          <div
+            class="flex flex-col h-[396px] w-full p-12 gap-3 text-xl justify-center"
+          >
+            <div class="flex text-center items-center">
+              <mat-icon>hourglass_empty</mat-icon> No hay proyectos asignados
+            </div>
+            <button mat-flat-button class="mt-10 w-[300px]" (click)="openDialog()">
+              Agregar a un nuevo proyecto
+            </button>
+          </div>
+        }
+         @else {
+           <mat-tab-group dynamicHeight>
+            @for (project of developer?.project; track developer?.project?.indexOf(project)) {
+              <mat-tab label="{{($index+1)}}">
+                <div class="flex flex-col h-[396px] w-full p-12 gap-3 text-xl">
+                  <div class="flex text-center items-center">
+                    <mat-icon>terminal</mat-icon> Nombre del proyecto:
+                    {{ project.name }}
+                  </div>
+                  <div class="flex text-center items-center">
+                    <mat-icon>inventory</mat-icon> Descripcion:
+                    {{ project.description }}
+                  </div>
+                  <div class="flex text-center items-center">
+                    <mat-icon>person_add</mat-icon> Fecha de creacion:
+                    {{ project.creationDate | date: "dd/MM/yyyy" }}
+                  </div>
+                  <div class="flex text-center items-center">
+                    <mat-icon>today</mat-icon> Fecha de inicio:
+                    {{ project.startDate | date: "dd/MM/yyyy" }}
+                  </div>
+                  <div class="flex text-center items-center">
+                    <mat-icon>calendar_month</mat-icon> Fecha de Actualizacion:
+                    {{ project.updateDate | date: "dd/MM/yyyy" }}
+                  </div>
+                  <div class="flex justify-center mt-10">
+                    <button mat-flat-button class="mt-10 w-[80%]" (click)="openDialog()">
+                      Agregar un nuevo proyecto
+                    </button>
+                  </div>
+                </div>
+              </mat-tab>
+            }
+          </mat-tab-group>
+        }
+      </div>
+    </mat-tab>
+    <!-- Task tab  -->
+    <mat-tab label="Tareas">
+      <div>
+        <!-- /*Aca iteran las tareas del desarrollador*/  -->
+        @if (developer?.task?.length === 0) {
+          <div
+            class="flex flex-col h-[396px] w-full p-12 gap-3 text-xl justify-center"
+          >
+            <div class="flex text-center items-center">
+              <mat-icon>hourglass_empty</mat-icon> No hay tareas asignadas
+            </div>
+            <button mat-flat-button class="mt-10 w-[300px]">
+              Asignar una nueva tarea
+            </button>
+          </div>
+        } @else {
+          <mat-tab-group dynamicHeight>
+          @for (task of developer?.task; track task.id) {
+              <mat-tab label="Tarea: {{($index+1)}}">
+                <div class="flex flex-col h-[396px] w-full p-12 gap-3 text-xl">
+                  <div class="flex text-center items-center">
+                    <mat-icon>task</mat-icon>Tarea:
+                    {{ task.tittle }}
+                  </div>
+                  <div class="flex text-center items-center">
+                    <mat-icon>description</mat-icon>Descripcion:
+                    {{ task.description }}
+                  </div>
+                  <div class="flex text-center items-center">
+                    <mat-icon>event_available</mat-icon>Fecha limite:
+                    {{ task.limitDate | date: "dd/MM/yyyy" }}
+                  </div>
+                  <div class="flex justify-center mt-10">
+                  <button mat-flat-button class="mt-10 w-[80%]">
+                    Asignar una nueva tarea
+                  </button>
+                  </div>
+                </div>
+              </mat-tab>
+            }
+          </mat-tab-group>
+        }
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>

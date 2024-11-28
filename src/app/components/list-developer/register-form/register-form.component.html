@@ -1,0 +1,92 @@
+<div class="w-[900px] h-[400px] flex flex-col justify-center items-center">
+  <mat-toolbar class="flex justify-end">
+    <button mat-icon-button (click)="closeDialog()">
+      <mat-icon class="h-2.5 w-2.5">close</mat-icon>
+    </button>
+  </mat-toolbar>
+  <!-- Tittle  -->
+  <div class="flex justify-between">
+    <p class="text-[40px]">{{ data.message }}</p>
+  </div>
+  <!-- Inputs  -->
+  <div class="w-[800px] h-[399px] flex flex-col gap-5">
+    <!-- name y lastname  -->
+    <div class="flex flex-row justify-between gap-5">
+      <!-- name  -->
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input [(ngModel)]="name" matInput required />
+        <mat-error>El nombre es necesario</mat-error>
+      </mat-form-field>
+      <!-- Apellido -->
+      <mat-form-field appearance="outline">
+        <mat-label>Apellido</mat-label>
+        <input [(ngModel)]="lastname" matInput required />
+        <mat-error>El apellido es necesario</mat-error>
+      </mat-form-field>
+    </div>
+    <!-- Mail y role  -->
+    <div class="flex flex-row justify-between gap-5">
+      <!-- mail  -->
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input
+          [(ngModel)]="mail"
+          matInput
+          required
+          email
+          placeholder="example@email.com"
+        />
+        <mat-error></mat-error>
+      </mat-form-field>
+      <!-- role  -->
+      <mat-form-field appearance="outline">
+        <mat-label>Rol</mat-label>
+        <mat-select required [(ngModel)]="role" name="option">
+          @for (roleItem of roles$ ; track roleItem.id) {
+            <mat-option [value]="roleItem.id">{{ roleItem.name }}</mat-option>
+          }
+        </mat-select>
+        <mat-error>El rol es necesario </mat-error>
+      </mat-form-field>
+    </div>
+    <!-- Datepicker and buttons  -->
+    <div class="flex justify-between items-center">
+      <!-- Datepicker  -->
+      @if (dialogEdit) {
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Fecha de contratacion</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              [(ngModel)]="date"
+              required
+              placeholder="dd/mm/yyyy"
+            />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker"
+              class="mr-5"
+            ></mat-datepicker-toggle>
+            <mat-datepicker touchUi #picker></mat-datepicker>
+            <mat-error>La fecha de contratacion es necesaria</mat-error>
+
+          </mat-form-field>
+        </div>
+      }
+        <!-- Buttons  -->
+        <div class="w-full flex justify-center items-center gap-6 mb-5">
+          <button mat-stroked-button (click)="cleanForm()">Limpiar</button>
+          <button
+            mat-flat-button
+            (click)="sendDeveloper()"
+            class="w-[95px]"
+          >
+            Enviar
+          </button>
+        </div>
+
+    </div>
+  </div>
+</div>

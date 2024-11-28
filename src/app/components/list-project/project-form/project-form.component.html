@@ -1,0 +1,186 @@
+<mat-card class="w-[1000px] h-[500px] flex content-center text-cidsBlue">
+  <mat-tab-group dynamicHeight #tabGroup>
+    <form [formGroup]="formProjects" (ngSubmit)="sendDataProjects()">
+      <mat-tab label="Proyecto">
+        <div class="w-full h-[80px] text-cidsBlue text-5xl text-center p-4">
+          Crear Nuevo Proyecto
+        </div>
+        <div class="flex flex-row gap-7 items-center justify-center ml-6 mr-6">
+          <div class="flex flex-col gap-2 justify-center">
+            <mat-form-field appearance="outline" class="p-2 w-[400px]">
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="name" />
+              <mat-hint>Nombre del proyecto</mat-hint>
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+            <!--Descripcion -->
+            <mat-form-field
+              appearance="outline"
+              class="p-2 w-[400px] h-[200px]"
+            >
+              <mat-label>Descripcion</mat-label>
+              <input matInput formControlName="description" />
+              <mat-hint>Describa el proyecto</mat-hint>
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="flex flex-col gap-[29px]">
+            <!--Fecha de inicio -->
+            <mat-form-field appearance="outline" class="w-[400px]">
+              <mat-label>Fecha de inicio</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker1"
+                formControlName="startDate"
+              />
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="picker1"
+              ></mat-datepicker-toggle>
+              <mat-datepicker touchUi #picker1></mat-datepicker>
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+            <!--Fecha final del proyecto -->
+            <mat-form-field appearance="outline" class="w-[400px]">
+              <mat-label>Fecha final del proyecto</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker2"
+                formControlName="endDate"
+              />
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="picker2"
+              ></mat-datepicker-toggle>
+              <mat-datepicker touchUi #picker2></mat-datepicker>
+              <mat-error>La fecha es invalida</mat-error>
+            </mat-form-field>
+            <!--Desarrollador encargado -->
+            <mat-form-field appearance="outline" class="">
+              <mat-label>Desarrollador encargado</mat-label>
+              <mat-select formControlName="idManager">
+                @for (developer of developers; track developer.id) {
+                  <mat-option [value]="developer.id">{{
+                    developer.name
+                  }}</mat-option>
+                }
+              </mat-select>
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-end mr-[83px]">
+          <button mat-flat-button class="w-[100px]" (click)="goToNextTab()">
+            Siguiente
+          </button>
+        </div>
+      </mat-tab>
+      <!-- Desarrolladores -->
+      <mat-tab label="Desarrolladores" class="h-[410px] flex items-center">
+        <div class="text-center mt-5 mb-5">
+          <p>Añada Desarrolladores al proyecto</p>
+        </div>
+        <mat-dialog-content
+          class="h-[320px] w-full border-t border-b border-l-gray-100"
+        >
+          <div
+            class="h-[60px] flex flex-col text-cidsBlue font-medium text-[30px] gap-4 opacity-100"
+          >
+            <section>
+              <mat-chip-listbox formControlName="devsForm" multiple>
+                @for (developer of developers; track developer.id) {
+                  <mat-chip-option [value]="developer">{{
+                    developer.name
+                  }}</mat-chip-option>
+                }
+              </mat-chip-listbox>
+            </section>
+          </div>
+        </mat-dialog-content>
+        <div class="flex justify-end items-center h-[50px] mt-2 mr-5">
+          <button
+            type="submit"
+            mat-flat-button
+            class="w-[100px]"
+            (click)="goToNextTab()"
+          >
+            Siguiente
+          </button>
+        </div>
+      </mat-tab>
+      <!-- Tareas -->
+      <mat-tab label="Tareas">
+        <!-- Titulo  -->
+        <div class="h-40px w-full flex flex-row mt-4 mb-4">
+          <div class="items-center text-center text-[30px] w-[50%]">
+            Agregar tareas
+          </div>
+          <div class="items-center text-center text-[30px] w-[50%]">
+            Agregar tareas a desarrolladores
+          </div>
+        </div>
+        <div class="flex flex-row w-full justify-between h-[330px]">
+          <form
+            class="w-[50%]"
+            [formGroup]="formProjects"
+            (ngSubmit)="sendDataProjects()"
+          >
+            <div class="flex flex-col justify-center items-center">
+              <mat-form-field class="w-[90%]">
+                <mat-label>Titulo</mat-label>
+                <input matInput required />
+              </mat-form-field>
+              <mat-form-field class="w-[90%]">
+                <mat-label>Fecha limite</mat-label>
+                <input matInput [matDatepicker]="picker" />
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field class="w-[90%] h-[120px]">
+                <mat-label>Descripcion</mat-label>
+                <textarea matInput></textarea>
+              </mat-form-field>
+              <button mat-stroked-button type="submit" class="w-[70%]">
+                Agregar tarea
+              </button>
+            </div>
+          </form>
+          <mat-dialog-content id="tasks" class="w-[50%]">
+            <div class="flex flex-col">
+              @for (
+                developer of formProjects.get("devsForm")?.value;
+                track $index
+              ) {
+                <mat-form-field class="w-auto">
+                  <mat-label>{{ developer.name }}</mat-label>
+                  <mat-select formControlName="tasks" multiple>
+                    @for (task of tasks; track $index) {
+                      <mat-option
+                        [value]="tasks"
+                        (selectionChange)="updateTask(developer, $event)"
+                        >{{ task.tittle }}</mat-option
+                      >
+                    }
+                  </mat-select>
+                </mat-form-field>
+              }
+            </div>
+          </mat-dialog-content>
+          <!-- Segundo div guarda la primer seccion  -->
+        </div>
+        <div class="flex w-full justify-end mt-3 mr-8 pr-8">
+          <button type="submit" mat-flat-button (click)="sendDataProjects()">
+            Crear proyecto
+          </button>
+        </div>
+      </mat-tab>
+    </form>
+  </mat-tab-group>
+</mat-card>

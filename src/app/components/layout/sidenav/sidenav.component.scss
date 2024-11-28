@@ -1,0 +1,38 @@
+.mat-mdc-button:not(:disabled) {
+  color: #153de1;
+}
+
+.mdc-button:hover {
+  cursor: default;
+}
+
+.mat-mdc-button {
+  --mdc-text-button-label-text-size: 25px;
+  width: 100%;
+}
+.mat-mdc-button > .mat-icon,
+.mat-mdc-unelevated-button > .mat-icon,
+.mat-mdc-raised-button > .mat-icon,
+.mat-mdc-outlined-button > .mat-icon {
+  position: static;
+  height: 40px;
+  width: 10%;
+  font-size: 25px;
+}
+
+.example-container {
+  width: 500px;
+  height: 300px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-sidenav {
+  padding: 20px;
+}

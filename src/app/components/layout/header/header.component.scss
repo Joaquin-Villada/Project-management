@@ -1,0 +1,26 @@
+
+.mat-toolbar {
+  --mat-toolbar-container-background-color: #5faaff;
+  --mdc-icon-button-icon-color: #0038b0;
+}
+
+.mat-mdc-button:not(:disabled) {
+  color: #153de1;
+}
+
+.mdc-button:hover {
+  cursor: default;
+}
+
+.mat-mdc-button {
+  --mdc-text-button-label-text-size: 25px;
+}
+.mat-mdc-button > .mat-icon,
+.mat-mdc-unelevated-button > .mat-icon,
+.mat-mdc-raised-button > .mat-icon,
+.mat-mdc-outlined-button > .mat-icon {
+  position: static;
+  height: 40px;
+  width: 25px;
+  font-size: 25px;
+}

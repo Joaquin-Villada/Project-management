@@ -1,1 +1,34 @@
 /* You can add global styles to this file, and also import other style files */
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  .mdc-data-table__cell {
+    text-align: center;
+}
+}
+
+// Material-Tailwind fix
+.mdc-notched-outline__notch {
+  border-style: none;
+}
+
+// Material-Tailwind fix
+.mat-mdc-icon-button {
+  line-height: normal;
+  --mat-icon-color: #2a53aa;
+}
+
+.mat-mdc-unelevated-button:not(:disabled) {
+  --mdc-filled-button-container-color: #0038b0;
+}
+.mat-mdc-outlined-button:not(:disabled) {
+  --mdc-outlined-button-label-text-color: #0038b0;
+  --mdc-outlined-button-outline-color: #0038b0;
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

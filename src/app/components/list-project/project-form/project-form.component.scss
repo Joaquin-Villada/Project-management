@@ -1,0 +1,27 @@
+.mat-mdc-form-field {
+  text-align: end;
+}
+
+#name-icon {
+  height: 44px;
+  width: 44px;
+  font-size: 44px; // Ajusta el tamaño del icono
+  color: #0038b0; // Cambia el color del icono a azul oscuro
+}
+
+p {
+  margin-bottom: 0px;
+  color: #0038b0;
+  font-size: 44px;
+}
+
+#tasks .mat-mdc-dialog-container .mat-mdc-dialog-content {
+ --mat-dialog-content-padding: 10px 10px 0px 0px;
+}
+
+span.mat-mdc-button-touch-target {
+  margin-right: 20px;
+}
+.mat-mdc-form-field {
+  text-align: start;
+}
