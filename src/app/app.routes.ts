@@ -4,8 +4,6 @@ import { HomeComponent } from './components/home/home.component';
 import { ListDeveloperComponent } from './components/list-developer/list-developer/list-developer.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ListProjectComponent } from './components/list-project/list-project/list-project.component';
-import { ProjectFormComponent } from './components/list-project/project-form/project-form.component';
-import { ViewDeveloperComponent } from './components/list-developer/view-developer/view-developer.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },

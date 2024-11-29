@@ -38,6 +38,7 @@ import {
 import { DataUpdateProjectsService } from '../../../services/data-update-projects.service';
 import { Task } from '../../../models/task.model';
 import { TasksService } from '../../../services/tasks.service';
+import { TaskStatus } from '../../../models/taskStatus.model';
 
 @Component({
   selector: 'app-project-form',
@@ -101,9 +102,8 @@ export class ProjectFormComponent implements OnInit, OnDestroy {
     this.formTask = this.form.group({
       tittle: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      state: ['', [Validators.required]],
-      idDeveloper: ['', Validators.required],
-
+      limitDate: ['', [Validators.required, this.dateValidator]],
+      statusId: [{ id: 1, name: 'Pendiente' } as TaskStatus],
     });
   }
 
@@ -130,8 +130,16 @@ export class ProjectFormComponent implements OnInit, OnDestroy {
   }
 
   addTask() {
-    console.log(this.formTask.value);
-    const task = this.formTask.value;
+    if (this.formTask.valid) {
+      const task: Task = {
+        ...this.formTask.value,
+        Project: [this.formProjects.value], // Relación al proyecto actual
+      };
+      this.tasks.push(task); // Agregar tarea a la lista
+      const currentTasks = this.formProjects.get('tasks')?.value || [];
+      this.formProjects.get('tasks')?.setValue([...currentTasks, task]); // Agregar tarea al formulario de proyectos
+      this.formTask.reset(); // Reiniciar el formulario para una nueva tarea
+    }
   }
 
   updateTask(developer: any, event: any): void {
@@ -152,7 +160,7 @@ export class ProjectFormComponent implements OnInit, OnDestroy {
       this.tasks = tasks;
       },
       error: (error) => {
-      console.error('Error fetching tasks', error);
+      console.error(error);
       },
     });
     }
@@ -177,6 +185,12 @@ export class ProjectFormComponent implements OnInit, OnDestroy {
     if (this.tabGroup.selectedIndex !== null && this.tabGroup.selectedIndex < this.tabGroup._tabs.length - 1) {
       this.tabGroup.selectedIndex++;
     } }
+
+  goToBackTab(): void {
+    if (this.tabGroup.selectedIndex !== null && this.tabGroup.selectedIndex > 0) {
+      this.tabGroup.selectedIndex--;
+    } }
+
    snackBar(mensaje: string, time: number) {
     this._snackBar.open(mensaje, '', {
       duration: time,

@@ -6,6 +6,7 @@ export interface Task {
   tittle:       string;
   description:  string;
   limitDate:    Date;
+  status: number; 
   creationDate: Date;
   updateDate:   Date;
   developer:  Developer[];
